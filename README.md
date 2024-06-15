@@ -12,7 +12,7 @@ Other than the price increase, the old menus, including Build Your Own Seafood B
 
 1. The option to order crabs (snow crab, king crab, and dungenese crab) by the half-pound. Previously, one can only order these items by the whole-pound.
 
-| Build Your Own Seafood Bag  | Price $/lb | 
+| Build Your Own Seafood Bag  | Unit Price | 
 | :------  | ---: | 
 | king crab (1/2 lb)   |	30.99|
 | snow crab (1/2 lb)    |	19.99|
