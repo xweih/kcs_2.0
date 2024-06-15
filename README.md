@@ -14,7 +14,6 @@ Other than the price increase, the old menus, including Build Your Own Seafood B
 
 | Build your own bag  | Price $/lb | 
 | :------  | ---: | 
-
 | king crab (1/2 lb)   |	30.99|
 | snow crab (1/2 lb)    |	19.99|
 | dungeness crab (1/2 lb)|19.99|
