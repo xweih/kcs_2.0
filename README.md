@@ -22,3 +22,12 @@ Other than the price increase, the old menus, including Build Your Own Seafood B
 2. Additional single items: egg and broccoli
 
 3. For the ordering option "Build Your Own Seafood Bag", each bag will receive up to 1 corn and 1 potato (2 items in total) for free, if any seafood item is ordered. 
+
+
+## Model Updates (KCH 2.0)
+
+1. The new model incorperate all menu changes described above.
+
+2. New items are now available in customer orders: eggs, broccoli
+
+3. The new model will generate alert when an improper order quantity is entered. For example, if a non-integer valued quantity is entered for item "crawfish", the program will stop.   
