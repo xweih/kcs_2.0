@@ -1,4 +1,5 @@
 # The King Crab Hack (KCH) 2.0
+## An Updated Model
 
 <img src="images/kcs_2.0.png" width="1000" >
 
