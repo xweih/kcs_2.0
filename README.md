@@ -31,3 +31,17 @@ Other than the price increase, the old menus, including Build Your Own Seafood B
 2. New items are now available in customer orders: eggs, broccoli
 
 3. The new model will generate alert when an improper order quantity is entered. For example, if a non-integer valued quantity is entered for item "crawfish", the program will stop.   
+
+
+## The new "build your own seafood bag" price
+```javascript
+
+```
+
+## The code
+
+## Results
+
+
+## Discussion
+
