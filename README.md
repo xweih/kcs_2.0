@@ -35,7 +35,22 @@ Other than the price increase, the old menus, including Build Your Own Seafood B
 
 ## The new "build your own seafood bag" price
 ```javascript
+# The first corn and potato will be free, if there is a seafood order
+# Reduced the demand quantity of corn and potato by 1, by using a new df
 
+df_D_modify = D.copy()
+
+if df_D_modify.loc['corn','pound'] >=1 and np.sum(label_seafood * demandLBS) >=1:
+    df_D_modify.loc['corn','pound'] = df_D_modify.loc['corn','pound'] - 1
+    
+if df_D_modify.loc['potato','pound'] >=1 and np.sum(label_seafood * demandLBS) >=1:
+    df_D_modify.loc['potato','pound'] = df_D_modify.loc['potato','pound'] - 1
+
+# BYOB Price of the order can be computed immediately
+# Variable "demandLBS_disc" is used instead of "demandLBS"
+
+demandLBS_disc = df_D_modify['pound'].to_numpy()
+totalByob = np.inner(priceByob, demandLBS_disc)
 ```
 
 ## The code
@@ -44,4 +59,11 @@ Other than the price increase, the old menus, including Build Your Own Seafood B
 
 
 ## Discussion
+
+The idea of the MIP model is based on an crucial premise that:
+
+"The combo prices are strictly cheaper than ANY BYOB prices for ordering."
+
+This premise allows the formulation of our problem as a variant of the famous [knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem), i.e., a formulation that enjoys all the advantages and elegance of MIP optimization, afterall. 
+
 
