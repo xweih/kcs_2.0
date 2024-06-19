@@ -281,5 +281,5 @@ The idea of the MIP model is based on an crucial premise that:
 
 This premise allows the formulation of our problem as a variant of the famous [knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem), i.e., a formulation that enjoys all the advantages and elegance of MIP optimization, afterall. 
 
-Now, consider a less "well-designed" menu, in which
+Now, consider a less "well-designed" menu, in which the combo prices are not necessarily cheaper than the corresponding BYOB prices for an order. For example,
 
