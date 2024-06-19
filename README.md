@@ -116,50 +116,89 @@ combos = P['price'].keys().tolist()
 "Customer order" info needs modifying on two places (1)(2)
 
 ```javascript
-# (1) Split number of "tails" into numbers of "tail_1" and "tail_2"
+my_order.reset_index(inplace=True)
+D = my_order.fillna(0)
 
-num_tails = D[D['seafood'] == 'tail']['pound'].values[0]
+# (1) Split number of "tails" into numbers of "tail_1" and "tail_2"
+num_tails = D[D['item'] == 'tail']['pound'].values[0]
 num_1_tail = num_tails % 2
 num_2_tail = int(num_tails/2)
 
+# (1.1) Split number of "king" into numbers of "king" and "king_half"
+num_king = D[D['item'] == 'king']['pound'].values[0]
+num_king_one = int(num_king)
+num_king_half = math.ceil(num_king - num_king_one)
+
+# (1.2) Split number of "snow" into numbers of "snow" and "snow_half"
+num_snow = D[D['item'] == 'snow']['pound'].values[0]
+num_snow_one = int(num_snow)
+num_snow_half = math.ceil(num_snow - num_snow_one)
+
+# (1.3) Split number of "dung" into numbers of "dun" and "dun_half"
+num_dun = D[D['item'] == 'dung']['pound'].values[0]
+num_dun_one = int(num_dun)
+num_dun_half = math.ceil(num_dun - num_dun_one)
+
 # (2) Crawfish, clams, and mussels have the same price and are interchangable
 # Combine these items to form a new item, "ccm"
-
-ccm_lbs = D[D['seafood'] == 'crawfish']['pound'].values[0] \
-        + D[D['seafood'] == 'clams']['pound'].values[0] \
-        + D[D['seafood'] == 'mussels']['pound'].values[0]
+ccm_lbs = D[D['item'] == 'crawfish']['pound'].values[0] \
+        + D[D['item'] == 'clams']['pound'].values[0] \
+        + D[D['item'] == 'mussels']['pound'].values[0]
 
 ```
 
 ```javascript
 # Add "df_add" to the D dataframe and delete "crawfish", "clams", "mussels", and "tail" from it.
 
-dict_add = {'seafood':['ccm','tail_1','tail_2'], 
-            'pound': [ccm_lbs, num_1_tail, num_2_tail]
+dict_add = {'item':['ccm','tail_1','tail_2','king_one','king_half','snow_one','snow_half','dung_one', 'dung_half'], 
+            'pound': [ccm_lbs, num_1_tail, num_2_tail, num_king_one, num_king_half, num_snow_one, num_snow_half, num_dun_one, num_dun_half]
            }
 
 df_add = pd.DataFrame(dict_add)
 
 D = pd.concat( [D, df_add], axis=0, ignore_index=True )
 
-D.drop(D[D['seafood'] == 'crawfish'].index, inplace=True)
-D.drop(D[D['seafood'] == 'clams'].index, inplace=True)
-D.drop(D[D['seafood'] == 'mussels'].index, inplace=True)
-D.drop(D[D['seafood'] == 'tail'].index, inplace=True)
+D.drop(D[D['item'] == 'crawfish'].index, inplace=True)
+D.drop(D[D['item'] == 'clams'].index, inplace=True)
+D.drop(D[D['item'] == 'mussels'].index, inplace=True)
+D.drop(D[D['item'] == 'tail'].index, inplace=True)
+D.drop(D[D['item'] == 'king'].index, inplace=True)
+D.drop(D[D['item'] == 'snow'].index, inplace=True)
+D.drop(D[D['item'] == 'dung'].index, inplace=True)
 
-# Cast all numeric info into numpy arrays for modeling (CVX requirement)
+# Cast all numeric info into "numpy arrays" for modeling (CVX requirement)
+# label_seafood indicates whether an item is a seafood
 
 comboMakeUp = A.values
 priceByob = C['price'].to_numpy()
+label_seafood = C['seafood'].to_numpy()
 priceCombo = P['price'].to_numpy()
 
-D = D.set_index('seafood')
+D = D.set_index('item')
 D.sort_index(inplace=True)
 demandLBS = D['pound'].to_numpy()
+```
+
+Compute the BYOB price, as we did in the previous section. 
+
+```javascript
+# The first corn and potato will be free, if there is a seafood order
+# Reduced the demand quantity of corn and potato by 1, by using a new df
+
+df_D_modify = D.copy()
+
+if df_D_modify.loc['corn','pound'] >=1 and np.sum(label_seafood * demandLBS) >=1:
+    df_D_modify.loc['corn','pound'] = df_D_modify.loc['corn','pound'] - 1
+    
+if df_D_modify.loc['potato','pound'] >=1 and np.sum(label_seafood * demandLBS) >=1:
+    df_D_modify.loc['potato','pound'] = df_D_modify.loc['potato','pound'] - 1
 
 # BYOB Price of the order can be computed immediately
+# Variable "demandLBS_disc" is used instead of "demandLBS"
 
-totalByob = np.inner(priceByob, demandLBS)
+demandLBS_disc = df_D_modify['pound'].to_numpy()
+
+totalByob = np.inner(priceByob, demandLBS_disc)
 
 ```
 
@@ -170,19 +209,27 @@ Finally, we are able to construct a problem in CVXPY
 
 # Define decision variables, x[i]: build your own bag seafood, y[j]: numbers of combos
 
-x = cp.Variable(num_seafood, integer=True)
-y = cp.Variable(num_combo, integer=True)
+x = cp.Variable(num_items, integer=True)
+y = cp.Variable(num_combos, integer=True)
+z = cp.Variable(boolean=True)
 
 # Define objective function
 
-obj_expr = cp.sum(priceCombo @ y) + cp.sum(priceByob @ x)
+obj_expr = cp.sum(priceCombo @ y) + cp.sum(priceByob @ x) - z * (0.75+0.55)
 objective = cp.Minimize(obj_expr)
 
 # Define constraints
+M = 1000000
 
 constraints = [ comboMakeUp @ y + x >= demandLBS,
-              x >=0,
-              y>= 0
+                #cp.sum(label_seafood @ x) <= M * z ,
+                cp.sum(label_seafood @ x) >= 2 * z - 1 ,
+                #x[2] <= M * z,
+                #x[9] <= M * z,
+                x[2] >= 2 * z - 1 ,
+                x[9] >= 2 * z - 1 ,
+                x >= 0,
+                y >= 0
               ]
 
 # Call the solver
@@ -198,22 +245,26 @@ print("A solution x is")
 print(x.value)
 print("A solution y is")
 print(y.value)
+print("A solution z is")
+print(z.value)
 
 print( )
 print("=============== THE KING CRAB HACK ===============")
 print( )
 print("Here's everything you ordered: ")
 print( )
-print(order)
+print(D[D['pound']>0])
 print( )
 print("'Build Your Own Bag' would have cost: $", round(totalByob,2))
 print("\n" "Here's what you should order to get a bang for the buck:" "\n")
-for j in range(num_combo):
+for j in range(num_combos):
     if y.value[j] != 0: 
         print(combos[j], " = ", int(y.value[j]))
-for i in range(num_seafood):
+for i in range(num_items):
     if x.value[i] != 0: 
-        print(seafoods[i], " = ", int(x.value[i]))  
+        print(items[i], " = ", int(x.value[i]))  
+if z.value == 1:
+    print("Free items: 1 corn and 1 potato")
 print( )
 print("!! Now, your total (objective value) is: $", round(prob.value,2))
 print("!! YOU SAVED: $", round(totalByob - prob.value, 2), "(%s)" % format((totalByob - prob.value) / totalByob, ".0%") )
