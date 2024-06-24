@@ -62,6 +62,12 @@ The model presented in this post inherits from the orginal [KCH problem](https:/
 
 ## The Math Model
 
+**Sets:**
+
+$I = $ {crawfish, mussels, shrimp, snow crab, ..., sausage}
+
+$S =$ $I$\
+
 **Indices:**
 
 $i \in$ {crawfish, mussels, shrimp, snow crab, ..., sausage}: seafood by the pound 
