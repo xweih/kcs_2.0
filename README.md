@@ -65,9 +65,11 @@ The model presented in this post inherits from the orginal [KCH problem](https:/
 
 **Sets:**
 
-$I =$ {crawfish, mussels, shrimp, snow crab, ..., sausage}.
+$I =$ {crawfish, mussels, shrimp, snow crab, ..., sausage}. $I$ is the set of all items on "build your own bag" menu.
 
 $S =$ $I$ \ {corn, potato, egg, sausage, broccoli}. $S$ is a subset of $I$.
+
+$O =$ {combo 1, combo 2, ... , combo special 2}. $O$ is the set of all combos on the menu.
 
 **Indices:**
 
@@ -98,9 +100,9 @@ $A_{ij}$: the quantity (lb) of seafood $i$ in combo $j$, according to the menu.
 Thus, our mission can be formulated as a **cost-minimization problem** as follows: 
 
 
-$$ min: \quad \sum_j P_j Y_j + \sum_i C_i X_i  $$
+$$ min: \quad \sum_{j \in O} P_j Y_j + \sum_{i \in I} C_i X_i  $$
 
-$$ st:  \quad \sum_j A_{ij} Y_j + X_i \geq D_i, \quad \forall i $$
+$$ st:  \quad \sum_{j \in O} A_{ij} Y_j + X_i \geq D_i, \quad \forall i $$
 
 $$ \sum_{i \in S} X_i -1 \leq M*Z -1 $$
 
