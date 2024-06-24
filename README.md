@@ -53,7 +53,41 @@ demandLBS_disc = df_D_modify['pound'].to_numpy()
 totalByob = np.inner(priceByob, demandLBS_disc)
 ```
 
-## The code
+## The Math Model
+
+**Indices:**
+
+$i \in$ {crawfish, mussels, shrimp, snow crab, ..., sausage}: seafood by the pound 
+
+$j \in$ {combo 1, combo 2, ... , combo special 2}: combo
+
+
+**Decision Variables:**
+
+$X_i \in$ {0,1}: selection of a seafood by the pound, taking the value 1, if seafood $i$ is selected, and 0, if not.  
+
+$Y_j \in$ {0,1}: selection of a combo, taking the value of 1, if combo $j$ is selected, and 0, if not.  
+
+
+**Parameters:**
+
+$C_i$: build-your-own-bag menu price of seafood $i$,  (per pound)
+
+$P_j$: menu price of combo $j$, (per each)
+
+$D_i$: demand quantity (lb) of seafood $i$ as a customer order
+
+$A_{ij}$: the quantity (lb) of seafood $i$ in combo $j$, according to the menu.  
+
+
+Thus, our mission can be formulated as a **cost-minimization problem** as follows: 
+
+$$ min: \quad \sum_j P_j Y_j + \sum_i C_i X_i  $$
+
+$$ st:  \quad \sum_j A_{ij} Y_j + X_i \geq D_i, \quad \forall i $$
+
+
+## The Code
 
 The above mathematical model is encoded in Python Jupyter notebook with [CVXPY](https://www.cvxpy.org/) as the solver. Adding the following routine is necessary. 
 
