@@ -59,6 +59,7 @@ The model presented in this post inherits from the orginal [KCH problem](https:/
  1. An additional component in the objective function, i.e., the total cost of a customer-order. I apply a discount equivalent to the price of one corn and one potato ($1.30), contingent upon the inclusion of a "build your own bag" seafood item in the order.
  2. Specifically, if a "build your own bag" seafood item exists, then applies such discount. Otherwise, the discount does not apply. 
 
+
 ## The Math Model
 
 **Indices:**
@@ -89,9 +90,12 @@ $A_{ij}$: the quantity (lb) of seafood $i$ in combo $j$, according to the menu.
 
 Thus, our mission can be formulated as a **cost-minimization problem** as follows: 
 
+
 $$ min: \quad \sum_j P_j Y_j + \sum_i C_i X_i  $$
 
 $$ st:  \quad \sum_j A_{ij} Y_j + X_i \geq D_i, \quad \forall i $$
+
+$$ \sum X_i -1 \leq M*Z -1 $$
 
 
 ## The Code
