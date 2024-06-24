@@ -67,7 +67,7 @@ The model presented in this post inherits from the orginal [KCH problem](https:/
 
 $I =$ {crawfish, mussels, shrimp, snow crab, ..., sausage}.
 
-$S =$ $I\$ \ {corn, potato, egg, sausage, broccoli}. A subset of $I$.
+$S =$ $I$ \ {corn, potato, egg, sausage, broccoli}. A subset of $I$.
 
 **Indices:**
 
