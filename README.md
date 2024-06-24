@@ -54,9 +54,10 @@ totalByob = np.inner(priceByob, demandLBS_disc)
 ```
 ## The Twist
 
-The model presented in this post inherits the model from orginal [KCH problem](https://github.com/xweih/kcs), but with a "twist" in the following sense. 
+The model presented in this post inherits from the orginal [KCH problem](https://github.com/xweih/kcs), but with a "twist" in the following sense. 
 
- 1. An additional component in the objective function, i.e., the total cost of a customer-order. I apply a discount equivalent to the price of one corn and one potato ($1.30), contingent upon the inclusion of a "build your own seafood bag" item in the order.
+ 1. An additional component in the objective function, i.e., the total cost of a customer-order. I apply a discount equivalent to the price of one corn and one potato ($1.30), contingent upon the inclusion of a "build your own bag" seafood item in the order.
+ 2. Specifically, if a "build your own bag" seafood item exists, then applies such discount. Otherwise, the discount does not apply. 
 
 ## The Math Model
 
@@ -73,6 +74,7 @@ $X_i \in$ {0,1}: selection of a seafood by the pound, taking the value 1, if sea
 
 $Y_j \in$ {0,1}: selection of a combo, taking the value of 1, if combo $j$ is selected, and 0, if not.  
 
+$Z \in$ {0,1}: indicator of a "build your own bag" seafood item, taking the value of 1, if such item exists, and 0, if not.  
 
 **Parameters:**
 
