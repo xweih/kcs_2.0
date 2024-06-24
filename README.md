@@ -52,6 +52,7 @@ if df_D_modify.loc['potato','pound'] >=1 and np.sum(label_seafood * demandLBS) >
 demandLBS_disc = df_D_modify['pound'].to_numpy()
 totalByob = np.inner(priceByob, demandLBS_disc)
 ```
+
 ## The Twist
 
 The model presented in this post inherits from the orginal [KCH problem](https://github.com/xweih/kcs), but with a "twist" in the following sense. 
@@ -66,7 +67,7 @@ The model presented in this post inherits from the orginal [KCH problem](https:/
 
 $I =$ {crawfish, mussels, shrimp, snow crab, ..., sausage}.
 
-$S =$ $I$ \ {corn, potato, egg, sausage, broccoli}. A subset of $I$.
+$S =$ $I\$ \ {corn, potato, egg, sausage, broccoli}. A subset of $I$.
 
 **Indices:**
 
