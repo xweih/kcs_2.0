@@ -67,7 +67,7 @@ The model presented in this post inherits from the orginal [KCH problem](https:/
 
 $I =$ {crawfish, mussels, shrimp, snow crab, ..., sausage}.
 
-$S =$ $I$ \ {corn, potato, egg, sausage, broccoli}. A subset of $I$.
+$S =$ $I$ \ {corn, potato, egg, sausage, broccoli}. $S$ is a subset of $I$.
 
 **Indices:**
 
@@ -102,7 +102,7 @@ $$ min: \quad \sum_j P_j Y_j + \sum_i C_i X_i  $$
 
 $$ st:  \quad \sum_j A_{ij} Y_j + X_i \geq D_i, \quad \forall i $$
 
-$$ \sum X_i -1 \leq M*Z -1 $$
+$$ \sum_{i \in S} X_i -1 \leq M*Z -1 $$
 
 
 ## The Code
