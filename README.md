@@ -106,6 +106,8 @@ $$ st:  \quad \sum_{j \in O} A_{ij} Y_j + X_i \geq D_i, \quad \forall i $$
 
 $$ \sum_{i \in S} X_i -1 \leq M*Z -1 $$
 
+$$ \sum_{i \in S} X_i -1 \geq 2*Z -2 $$
+
 
 ## The Code
 
