@@ -113,11 +113,15 @@ $$ \sum_{i \in S} X_i -1 \geq 2*Z -2 $$
 To implement the logical condition 2, stated in the section "The Twist" section, I impose the following math conditions. The "Big M" method comes into play here. 
 
 a. If no BYOB seafood item is found, then there will be no discount of $1.30 (a free corn and a free potato). 
-$$ \sum_{i \in S} X_i -1 \geq 2*Z -2 $$
+
+$$\sum_{i \in S} X_i -1 \geq 2*Z -2$$
 b. If no individual corn is found, then there will be no discount.
-$$ X_{corn} -1 \geq 2*Z -2 $$
+
+$$X_{corn} -1 \geq 2*Z -2$$
+
 c. If no individual potato is found, then there will be no discount.
-$$ X_{potato} -1 \geq 2*Z -2 $$
+
+$$X_{potato} -1 \geq 2*Z -2$$
 
 
 ## The Code
