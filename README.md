@@ -175,22 +175,23 @@ combos = P['price'].keys().tolist()
 my_order.reset_index(inplace=True)
 D = my_order.fillna(0)
 
-# (1) Split number of "tails" into numbers of "tail_1" and "tail_2"
+# (1) Order quantities of the following should be split into two, due to different unit prices
+# (1.1) Split number of "tails" into numbers of "tail_1" and "tail_2"
 num_tails = D[D['item'] == 'tail']['pound'].values[0]
 num_1_tail = num_tails % 2
 num_2_tail = int(num_tails/2)
 
-# (1.1) Split number of "king" into numbers of "king" and "king_half"
+# (1.2) Split number of "king" into numbers of "king" and "king_half"
 num_king = D[D['item'] == 'king']['pound'].values[0]
 num_king_one = int(num_king)
 num_king_half = math.ceil(num_king - num_king_one)
 
-# (1.2) Split number of "snow" into numbers of "snow" and "snow_half"
+# (1.3) Split number of "snow" into numbers of "snow" and "snow_half"
 num_snow = D[D['item'] == 'snow']['pound'].values[0]
 num_snow_one = int(num_snow)
 num_snow_half = math.ceil(num_snow - num_snow_one)
 
-# (1.3) Split number of "dung" into numbers of "dun" and "dun_half"
+# (1.4) Split number of "dung" into numbers of "dun" and "dun_half"
 num_dun = D[D['item'] == 'dung']['pound'].values[0]
 num_dun_one = int(num_dun)
 num_dun_half = math.ceil(num_dun - num_dun_one)
@@ -202,6 +203,7 @@ ccm_lbs = D[D['item'] == 'crawfish']['pound'].values[0] \
         + D[D['item'] == 'mussels']['pound'].values[0]
 
 ```
+Preparing the curated customer demand vector, "D", and "demandLBS", for computation. 
 
 ```javascript
 # Add "df_add" to the D dataframe and delete "crawfish", "clams", "mussels", and "tail" from it.
@@ -235,7 +237,7 @@ D.sort_index(inplace=True)
 demandLBS = D['pound'].to_numpy()
 ```
 
-Compute the BYOB price, as we did in the previous section. 
+Compute the BYOB price, "totalByob", taking into account of the "free items" upon conditions.
 
 ```javascript
 # The first corn and potato will be free, if there is a seafood order
@@ -292,7 +294,11 @@ constraints = [ comboMakeUp @ y + x >= demandLBS,
 
 prob = cp.Problem(objective, constraints)
 prob.solve()
+```
 
+Post-process and display the solution to customers. 
+
+```javascript
 # Display the solution
 
 print("Status: ", prob.status)
