@@ -104,25 +104,27 @@ $$ min: \quad \sum_{j \in O} P_j Y_j + \sum_{i \in I} C_i X_i  $$
 
 $$ st:  \quad \sum_{j \in O} A_{ij} Y_j + X_i \geq D_i, \quad \forall i $$
 
-$$ \sum_{i \in S} X_i -1 \leq M*Z -1 $$
-
 $$ \sum_{i \in S} X_i -1 \geq 2*Z -2 $$
+
+$$X_{corn} -1 \geq 2*Z -2$$
+
+$$X_{potato} -1 \geq 2*Z -2$$
 
 ## More on the Constraints
 
-To implement the logical condition 2, stated in the section "The Twist" section, I impose the following math conditions. The "Big M" method comes into play here. 
+To implement the logical condition 2, stated in the section "The Twist" section, I impose the following math conditions. The "Big M" method comes into play here. (Although there is no actual "M" parameter here!)
 
-a. If no BYOB seafood item is found, then there will be no discount of $1.30 (a free corn and a free potato). 
+a. If no BYOB seafood item is found, then there will be no discount of $1.30 (a free corn and a free potato), i.e., the discount factor, $Z$, is 0. (Same in b and c.)
 
-$$If\ \sum_{i \in S} X_i =0,\ then\ Z=0 \quad \Longleftrightarrow \quad \sum_{i \in S} X_i -1 \geq 2*Z -2$$
+$$If\ \sum_{i \in S} X_i =0,\ then\ Z=0 \qquad \Longleftrightarrow \qquad \sum_{i \in S} X_i -1 \geq 2*Z -2$$
 
 b. If no individual corn is found, then there will be no discount.
 
-$$If\ X_{corn} =0,\ then\ Z=0 \quadd \Longleftrightarrow \quad X_{corn} -1 \geq 2*Z -2$$
+$$If\ X_{corn} =0,\ then\ Z=0 \qquad \Longleftrightarrow \qquad X_{corn} -1 \geq 2*Z -2$$
 
 c. If no individual potato is found, then there will be no discount.
 
-$$If\ X_{potato} =0,\ then\ Z=0 \qquad \Longleftrightarrow \quad X_{potato} -1 \geq 2*Z -2$$
+$$If\ X_{potato} =0,\ then\ Z=0 \qquad \Longleftrightarrow \qquad X_{potato} -1 \geq 2*Z -2$$
 
 
 ## The Code
