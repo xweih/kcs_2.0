@@ -114,7 +114,8 @@ To implement the logical condition 2, stated in the section "The Twist" section,
 
 a. If no BYOB seafood item is found, then there will be no discount of $1.30 (a free corn and a free potato). 
 
-$$\sum_{i \in S} X_i -1 \geq 2*Z -2$$
+$$\sum_{i \in S} X_i -1 \geq 2*Z -2$$ $\leftrightarrow$ If, then Z=0
+
 b. If no individual corn is found, then there will be no discount.
 
 $$X_{corn} -1 \geq 2*Z -2$$
