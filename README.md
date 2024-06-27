@@ -58,6 +58,7 @@ totalByob = np.inner(priceByob, demandLBS_disc)
 The model presented in this post inherits from the orginal [KCH problem](https://github.com/xweih/kcs), but with a "twist" in the following sense. 
 
  1. An additional component in the objective function, i.e., the total cost of a customer-order. I apply a discount equivalent to the price of one corn and one potato ($1.30), contingent upon the inclusion of a "build your own bag" seafood item in the order.
+ 
  2. Specifically, if a "build your own bag" seafood item exists, then applies such discount. Otherwise, the discount does not apply. 
 
 
@@ -114,18 +115,19 @@ $$X_{potato} \geq 2*Z -1$$
 
 To implement the logical condition 2, stated in the section "The Twist" section, I impose the following math conditions. The "Big M" method comes into play here. (Although there is no actual "M" parameter here!)
 
-a. If no BYOB seafood item is found, then there will be no discount of $1.30 (a free corn and a free potato), i.e., the discount factor, $Z$, is 0. (Same in b and c.)
+(a). If no BYOB seafood item is found, then there will be no discount of $1.30 (a free corn and a free potato), i.e., the discount factor, $Z$, is 0. (Same in b and c.)
 
 $$If\ \sum_{i \in S} X_i =0,\ then\ Z=0 \qquad \Longleftrightarrow \qquad \sum_{i \in S} X_i -1 \geq 2*Z -2$$
 
-b. If no individual corn is found, then there will be no discount.
+(b). If no individual corn is found, then there will be no discount.
 
 $$If\ X_{corn} =0,\ then\ Z=0 \qquad \Longleftrightarrow \qquad X_{corn} -1 \geq 2*Z -2$$
 
-c. If no individual potato is found, then there will be no discount.
+(c). If no individual potato is found, then there will be no discount.
 
 $$If\ X_{potato} =0,\ then\ Z=0 \qquad \Longleftrightarrow \qquad X_{potato} -1 \geq 2*Z -2$$
 
+IMPLICATION: The contraints (a), (b), and (c) collectively ensures that the discount is only given when orders of seafood, corn, and potato are ALL met. 
 
 ## The Code
 
@@ -298,12 +300,9 @@ objective = cp.Minimize(obj_expr)
 M = 1000000
 
 constraints = [ comboMakeUp @ y + x >= demandLBS,
-                #cp.sum(label_seafood @ x) <= M * z ,
                 cp.sum(label_seafood @ x) >= 2 * z - 1 ,
-                #x[2] <= M * z,
-                #x[9] <= M * z,
-                x[2] >= 2 * z - 1 ,
-                x[9] >= 2 * z - 1 ,
+                x[2] >= 2 * z - 1 , #corn
+                x[9] >= 2 * z - 1 , #potato
                 x >= 0,
                 y >= 0
               ]
@@ -352,6 +351,43 @@ print("!! YOU SAVED: $", round(totalByob - prob.value, 2), "(%s)" % format((tota
 
 ## Results
 
+After running the script, we are able to find at least one optimal solution, as follows.
+
+```javascript
+Status:  optimal
+The optimal value is: 83.58000000000001
+A solution x is
+[-0.  5.  5. -0. -0. -0. -0. -0. -0.  4.  2. -0. -0.  0. -0. -0. -0. -0.]
+A solution y is
+[ 0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0.  0. -0. -0. -0.
+  0. -0.]
+A solution z is
+1.0
+
+=============== THE KING CRAB HACK ===============
+
+Here's everything you ordered: 
+
+         pound
+item          
+ccm        5.0
+corn       5.0
+potato     4.0
+sausage    2.0
+
+'Build Your Own Bag' would have cost: $ 83.58
+
+Here's what you should order to get a bang for the buck:
+
+crawfish-clams-mussels  =  5
+corn  =  5
+potato  =  4
+sausage  =  2
+Free items: 1 corn and 1 potato
+
+!! Now, your total (objective value) is: $ 83.58
+!! YOU SAVED: $ 0.0 (0%)
+```
 
 ## Discussion
 
