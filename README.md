@@ -67,7 +67,7 @@ totalByob = np.inner(priceByob, demandLBS_disc)
 
 ## The Math
 
-In this model, I continue to assume (without prejudice) that ANY given order placed with a combo is more economically advantageous than solely in "Build Your Own Seafood Bag" style. 
+In this model, I continue to assume (without prejudice) that ANY given placed order that contains a combo is more economically advantageous than what is solely in "Build Your Own Seafood Bag" style. Hence, the math model is an extension of the famous [knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem). 
 
 **Sets:**
 
@@ -402,7 +402,7 @@ The idea of the MIP model is based on an crucial premise that:
 
 "The combo prices are strictly cheaper than ANY BYOB prices for ordering."
 
-This premise allows the formulation of our problem as a variant of the famous [knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem), i.e., a formulation that enjoys all the advantages and elegance of MIP optimization, afterall. 
+This premise allows the formulation of our problem as a variant of the famous knapsack Problem, i.e., a formulation that enjoys all the advantages and elegance of MIP optimization, afterall. 
 
 Now, consider a less "well-designed" menu, in which the combo prices are not necessarily cheaper than the corresponding BYOB prices for an order. For example,
 
