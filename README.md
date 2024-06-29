@@ -62,7 +62,7 @@ The model presented in this post inherits from the orginal [KCH problem](https:/
  2. Specifically, if a "build your own bag" seafood item exists, then applies such discount. Otherwise, the discount does not apply. 
 
 
-## The Math Model
+## The Math
 
 **Sets:**
 
