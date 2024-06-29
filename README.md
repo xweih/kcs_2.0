@@ -44,7 +44,7 @@ The model presented in this post inherits from the orginal [KCH problem](https:/
 
 ## The New "Build Your Own Seafood Bag" Price
 
-According to what was delineated above, the "Build Your Own Seafood Bag" price with the discount can be computed. This price will be used to benchmark the savings resulted from our final optimal solution. 
+According to what was delineated in The Twist above, the "Build Your Own Seafood Bag" price with the discount can be computed. This price will be used to benchmark the savings resulted from our final optimal solution. 
 
 ```javascript
 # The first corn and potato will be free, if there is a seafood order
