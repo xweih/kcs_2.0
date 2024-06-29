@@ -7,7 +7,7 @@
 Since the release of the orginal [KCH problem](https://github.com/xweih/kcs), the menus of the restaurant has changed to some degree. Consequently, it affected the utility of my previous model. So in this post, I outline the menu change, and the subsequent model updates. 
 
 
-## Menu Change
+## Menu Changes
 
 Other than the price increase, the old menus, including Build Your Own Seafood Bag and Seafood Combos, remain the same. However, new order options have been added as follows. 
 
@@ -19,21 +19,33 @@ Other than the price increase, the old menus, including Build Your Own Seafood B
 | snow crab (1/2 lb)    |	19.99|
 | dungeness crab (1/2 lb)|19.99|
 
-2. Additional single items: egg and broccoli
+2. Additional single items: egg and broccoli.
 
 3. For the ordering option "Build Your Own Seafood Bag", each bag will receive up to 1 corn and 1 potato (2 items in total) for free, if any seafood item is ordered. 
 
 
 ## Model Updates (KCH 2.0)
 
-1. The new model incorperate all menu changes described above.
+1. The new model incorperates all menu changes described above.
 
-2. New items are now available in customer orders: eggs, broccoli
+2. New items are now available in customer orders: eggs, broccoli.
 
 3. The new model will generate alert when an improper order quantity is entered. For example, if a non-integer valued quantity is entered for item "crawfish", the program will stop.   
 
 
-## The new "build your own seafood bag" price
+
+## The Twist
+
+The model presented in this post inherits from the orginal [KCH problem](https://github.com/xweih/kcs), but with a "twist" in the following sense. 
+
+ 1. An additional component in the objective function, i.e., the total cost of a customer-order. I apply a discount equivalent to the price of one corn and one potato ($1.30), contingent upon the inclusion of a "build your own bag" seafood item in the order.
+ 
+ 2. Specifically, if a "build your own bag" seafood item exists, then applies such discount. Otherwise, the discount does not apply. 
+
+## The New "Build Your Own Seafood Bag" Price
+
+According to what was delineated above, the "Build Your Own Seafood Bag" price with the discount can be computed. This price will be used to benchmark the savings resulted from our final optimal solution. 
+
 ```javascript
 # The first corn and potato will be free, if there is a seafood order
 # Reduced the demand quantity of corn and potato by 1, by using a new df
@@ -53,16 +65,9 @@ demandLBS_disc = df_D_modify['pound'].to_numpy()
 totalByob = np.inner(priceByob, demandLBS_disc)
 ```
 
-## The Twist
-
-The model presented in this post inherits from the orginal [KCH problem](https://github.com/xweih/kcs), but with a "twist" in the following sense. 
-
- 1. An additional component in the objective function, i.e., the total cost of a customer-order. I apply a discount equivalent to the price of one corn and one potato ($1.30), contingent upon the inclusion of a "build your own bag" seafood item in the order.
- 
- 2. Specifically, if a "build your own bag" seafood item exists, then applies such discount. Otherwise, the discount does not apply. 
-
-
 ## The Math
+
+In this model, I continue to assume (without prejudice) that ANY given order placed with a combo is more economically advantageous than solely in "Build Your Own Seafood Bag" style. 
 
 **Sets:**
 
@@ -128,6 +133,8 @@ $$If\ X_{corn} =0,\ then\ Z=0 \qquad \Longleftrightarrow \qquad X_{corn} -1 \geq
 $$If\ X_{potato} =0,\ then\ Z=0 \qquad \Longleftrightarrow \qquad X_{potato} -1 \geq 2*Z -2$$
 
 IMPLICATION: The contraints (a), (b), and (c) collectively ensures that the discount is only given when orders of seafood, corn, and potato are ALL met. 
+
+
 
 ## The Code
 
