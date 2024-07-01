@@ -360,28 +360,31 @@ print("!! YOU SAVED: $", round(totalByob - prob.value, 2), "(%s)" % format((tota
 
 Let's say, I want to feed a big family (or perhaps just to treat myself). I need to order the following items:
 
-Crawfish: 
-Mussels: 
-Clams:
-Shrimp (whole):
-Snow Crab: 1.5 lb
-Corn:
-Potato:
-Sausage:
-Eggs:
+Crawfish: 1 lb
+Mussels: 1 lb
+Clams: 1 lb
+Shrimp (whole): 2 lbs
+Snow Crab: 1.5 lbs
+Corn: 3
+Potato: 2
+Sausage: 1
+Eggs: 2
 Broccoli: 1
 
+Apparently, I can simply put everything together by the "Build Your Own Seafood Bag" price, with the help of a spread sheet, I can come up with a total order cost of: $ 151.94. 
+
+But with the program presented here, I can get a better result.  
 
 After running the script, we are able to find at least one optimal solution, as follows.
 
 ```javascript
 Status:  optimal
-The optimal value is: 83.58000000000001
+The optimal value is: 139.93999999999997
 A solution x is
-[-0.  5.  5. -0. -0. -0. -0. -0. -0.  4.  2. -0. -0.  0. -0. -0. -0. -0.]
+[ 1.  0.  1. -0. -0.  2. -0. -0. -0.  1.  0. -0.  0.  0.  1.  0. -0. -0.]
 A solution y is
-[ 0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0.  0. -0. -0. -0.
-  0. -0.]
+[ 0.  1.  0. -0. -0.  1.  0. -0. -0. -0. -0. -0. -0. -0. -0.  0.  0. -0.
+  0.  0.]
 A solution z is
 1.0
 
@@ -389,26 +392,36 @@ A solution z is
 
 Here's everything you ordered: 
 
-         pound
-item          
-ccm        5.0
-corn       5.0
-potato     4.0
-sausage    2.0
+           pound
+item            
+broccoli     1.0
+ccm          3.0
+corn         3.0
+egg          2.0
+potato       2.0
+sausage      1.0
+shrimp_hs    2.0
+snow_half    1.0
+snow_one     1.0
 
-'Build Your Own Bag' would have cost: $ 83.58
+'Build Your Own Bag' would have cost: $ 151.94
 
 Here's what you should order to get a bang for the buck:
 
-crawfish-clams-mussels  =  5
-corn  =  5
-potato  =  4
-sausage  =  2
+combo_1_hs  =  1
+combo_4_hs  =  1
+broccoli   =  1
+corn  =  1
+egg  =  2
+potato  =  1
+snow_half  =  1
 Free items: 1 corn and 1 potato
 
-!! Now, your total (objective value) is: $ 83.58
-!! YOU SAVED: $ 0.0 (0%)
+!! Now, your total (objective value) is: $ 139.94
+!! YOU SAVED: $ 12.0 (8%)
 ```
+
+The output above is self-explanatory. My optimized total now is $ 139.94. I saved $ 12.00!
 
 ## Discussion
 
