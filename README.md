@@ -356,7 +356,21 @@ print("!! Now, your total (objective value) is: $", round(prob.value,2))
 print("!! YOU SAVED: $", round(totalByob - prob.value, 2), "(%s)" % format((totalByob - prob.value) / totalByob, ".0%") )
 ```
 
-## Results
+## Example
+
+Let's say, I want to feed a big family (or perhaps just to treat myself). I need to order the following items:
+
+Crawfish: 
+Mussels: 
+Clams:
+Shrimp (whole):
+Snow Crab: 1.5 lb
+Corn:
+Potato:
+Sausage:
+Eggs:
+Broccoli: 1
+
 
 After running the script, we are able to find at least one optimal solution, as follows.
 
