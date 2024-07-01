@@ -4,6 +4,7 @@
 <img src="images/kcs_2.0.png" width="1000" >
 
 ## Background
+
 Since the release of the orginal [KCH problem](https://github.com/xweih/kcs), the menus of the restaurant has changed to some degree. Consequently, it affected the utility of my previous model. So in this post, I outline the menu change, and the subsequent model updates. 
 
 
@@ -421,15 +422,23 @@ Free items: 1 corn and 1 potato
 !! YOU SAVED: $ 12.0 (8%)
 ```
 
-The output above is self-explanatory. My optimized total now is $ 139.94. I saved $ 12.00!
+The output above is self-explanatory. Notice, because of the presence of "snow_half" in the optimal solution, the discount indicator, Z, is triggered, allowing for the $1.3 discount on the total cost.  
+
+My optimized total now is $ 139.94. I saved $ 12.00!
 
 ## Discussion
 
+1. 
 The idea of the MIP model is based on an crucial premise that:
 
 "The combo prices are strictly cheaper than ANY BYOB prices for ordering."
 
 This premise allows the formulation of our problem as a variant of the famous knapsack Problem, i.e., a formulation that enjoys all the advantages and elegance of MIP optimization, afterall. 
 
-Now, consider a less "well-designed" menu, in which the combo prices are not necessarily cheaper than the corresponding BYOB prices for an order. For example,
+Now, consider a less "well-designed" menu, in which the combo prices are not necessarily cheaper than the corresponding BYOB prices for an order. In this case, the Knapsack-style MIP approach may not capture the optimal solution(s), as the algoritm does not compare the candidate solution to a corresponding BYOB setting. Nonetheless, such a premise can be justfied by the design of the current menus, and hence validate the current math model. 
+
+2.
+When it comes to the seafood items, such as lobstertails, that have a variable unit cost with respect to ordering quantity, the preprocessing procedure of the routine does not allow for a later breakup of the items into smaller units. Specifically, the preprocess bins each item into the unit with lower cost first (e.g., 2 tails), then the unit with higher cost (e.g., 1 tail). 
+
+
 
