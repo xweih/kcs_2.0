@@ -358,7 +358,7 @@ print("!! YOU SAVED: $", round(totalByob - prob.value, 2), "(%s)" % format((tota
 
 ## Example
 
-Let's say, I want to feed a big family (or perhaps just to treat myself). I need to order the following items:
+Let's say, I want to feed a big family (or perhaps just to treat myself). Hence, I need to order the following items:
 
 Crawfish: 1 lb
 Mussels: 1 lb
