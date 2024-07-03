@@ -426,19 +426,19 @@ The output above is self-explanatory. Notice, because of the presence of "snow_h
 
 My optimized total now is $ 139.94. I saved $ 12.00!
 
-## Discussion
+## Discussion and Extension
 
-1. 
-The idea of the MIP model is based on an crucial premise that:
+This section discusses the recommended modifications to the model for solving extended scenarios.
 
-"The combo prices are strictly cheaper than ANY BYOB prices for ordering."
+1. The concept of the MIP adopted in this model is based on a crucial premise:
 
-This premise allows the formulation of our problem as a variant of the famous knapsack Problem, i.e., a formulation that enjoys all the advantages and elegance of MIP optimization, afterall. 
+"The combo prices are strictly cheaper than any BYOB prices for ordering."
 
-Now, consider a less "well-designed" menu, in which the combo prices are not necessarily cheaper than the corresponding BYOB prices for an order. In this case, the Knapsack-style MIP approach may not capture the optimal solution(s), as the algoritm does not compare the candidate solution to a corresponding BYOB setting. Nonetheless, such a premise can be justfied by the design of the current menus, and hence validate the current math model. 
+This premise allows the formulation of our problem as a variant of the famous knapsack problem, benefiting from the advantages and elegance of MIP optimization.
 
-2.
-When it comes to the seafood items, such as lobstertails, that have a variable unit cost with respect to ordering quantity, the preprocessing procedure of the routine does not allow for a later breakup of the items into smaller units. Specifically, the preprocess bins each item into the unit with lower cost first (e.g., 2 tails), then the unit with higher cost (e.g., 1 tail). 
+Consider a less "well-designed" menu, where the combo prices are not necessarily cheaper than the corresponding BYOB prices for an order. In this case, the Knapsack-style MIP approach may not capture the optimal solution(s), as the algorithm does not compare the candidate solution to a corresponding BYOB setting. Nonetheless, such a premise can be justified by the design of the current menus, validating the current mathematical model. However, in an extended case with the aforementioned menu, reconsideration of the MIP approach for solving the problem is necessary.
+
+2. For seafood items, such as lobster tails, that have a variable unit cost based on the ordering quantity, the preprocessing procedure of the routine does not allow for later breaking up of the items into smaller units. Specifically, the preprocessing bins each item into the unit with the lower cost first (e.g., 2 tails), then the unit with the higher cost (e.g., 1 tail). When using the model to solve extended cases, changes may be required in the preprocessing so that the binning of the order quantity can be either flexible or accommodating to the particular unit cost of a given case.
 
 
 
