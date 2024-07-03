@@ -430,7 +430,8 @@ My optimized total now is $ 139.94. I saved $ 12.00!
 
 This section discusses the recommended modifications to the model for solving extended scenarios.
 
-1. The concept of the MIP adopted in this model is based on a crucial premise:
+1.
+The concept of the MIP adopted in this model is based on a crucial premise:
 
 "The combo prices are strictly cheaper than any BYOB prices for ordering."
 
@@ -438,7 +439,8 @@ This premise allows the formulation of our problem as a variant of the famous kn
 
 Consider a less "well-designed" menu, where the combo prices are not necessarily cheaper than the corresponding BYOB prices for an order. In this case, the Knapsack-style MIP approach may not capture the optimal solution(s), as the algorithm does not compare the candidate solution to a corresponding BYOB setting. Nonetheless, such a premise can be justified by the design of the current menus, validating the current mathematical model. However, in an extended case with the aforementioned menu, reconsideration of the MIP approach for solving the problem is necessary.
 
-2. For seafood items, such as lobster tails, that have a variable unit cost based on the ordering quantity, the preprocessing procedure of the routine does not allow for later breaking up of the items into smaller units. Specifically, the preprocessing bins each item into the unit with the lower cost first (e.g., 2 tails), then the unit with the higher cost (e.g., 1 tail). When using the model to solve extended cases, changes may be required in the preprocessing so that the binning of the order quantity can be either flexible or accommodating to the particular unit cost of a given case.
+2.
+For seafood items, such as lobster tails, that have a variable unit cost based on the ordering quantity, the preprocessing procedure of the routine does not allow for later breaking up of the items into smaller units. Specifically, the preprocessing bins each item into the unit with the lower cost first (e.g., 2 tails), then the unit with the higher cost (e.g., 1 tail). When using the model to solve extended cases, changes may be required in the preprocessing so that the binning of the order quantity can be either flexible or accommodating to the particular unit cost of a given case.
 
 
 
