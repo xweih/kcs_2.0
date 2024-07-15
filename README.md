@@ -442,4 +442,3 @@ Consider a less "well-designed" menu, where the combo prices are not necessarily
 For seafood items, such as lobster tails, that have a variable unit cost based on the ordering quantity, the preprocessing procedure of the routine does not allow for later breaking up of the items into smaller units. Specifically, the preprocessing bins each item into the unit with the lower cost first (e.g., 2 tails), then the unit with the higher cost (e.g., 1 tail). When using the model to solve extended cases, changes may be required in the preprocessing so that the binning of the order quantity can be either flexible or accommodating to the particular unit cost of a given case.
 
 
-
