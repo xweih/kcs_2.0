@@ -32,7 +32,7 @@ Other than the price increase, the old menus, including Build Your Own Seafood B
 
 3. The new model will generate alert when an improper order quantity is entered. For example, if a non-integer valued quantity is entered for item "crawfish", the program will stop.   
 
-
+ 
 
 ## The Twist
 
