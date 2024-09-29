@@ -105,17 +105,6 @@ $A_{ij}$: the quantity (lb) of seafood $i$ in combo $j$, according to the menu.
 
 Thus, our mission can be formulated as a **cost-minimization problem** as follows: 
 
-
-$$ min: \quad \sum_{j \in O} P_j Y_j + \sum_{i \in I} C_i X_i  $$
-
-$$ st:  \quad \sum_{j \in O} A_{ij} Y_j + X_i \geq D_i, \quad \forall i $$
-
-$$ \sum_{i \in S} X_i \geq 2*Z -1 $$
-
-$$X_{corn}  \geq 2*Z -1$$
-
-$$X_{potato} \geq 2*Z -1$$
-
 $$
 \begin{align}
    \text{min:} & \sum_{j \in O} P_j Y_j + \sum_{i \in I} C_i X_i &\\
